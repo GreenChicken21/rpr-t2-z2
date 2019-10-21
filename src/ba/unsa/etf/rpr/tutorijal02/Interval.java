@@ -71,7 +71,7 @@ public class Interval {
         if(this.isIn(i.getPocetak())){
             pov.setPocetak(i.getPocetak());
             pov.setSadrziPocetak(i.getSadrziPocetak());
-        }else{
+        }else if(i.isIn(this.getPocetak())){
             pov.setPocetak(this.getPocetak());
             pov.setSadrziPocetak(this.getSadrziPocetak());
         }
@@ -79,7 +79,7 @@ public class Interval {
         if(this.isIn(i.getKraj())){
             pov.setKraj(i.getKraj());
             pov.setSadrziKraj(i.getSadrziKraj());
-        }else{
+        }else if(i.isIn(this.getKraj())){
             pov.setKraj(this.getKraj());
             pov.setSadrziKraj(this.getSadrziKraj());
         }
@@ -88,6 +88,24 @@ public class Interval {
     }
 
     public static Interval intersect(Interval i, Interval i2){
-        return null;
+        return i.intersect(i2);
+    }
+
+    @Override
+    public String toString() {
+        if(isNull()) return "()";
+        String s = new String();
+        if(getSadrziPocetak())s+="[";
+        else s+="(";
+        s+=pocetak;
+        s+=","; s+=kraj;
+        if(getSadrziKraj()) s+="]";
+        else s+=")";
+        return s;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+       return o.toString().equals(this.toString());
     }
 }
